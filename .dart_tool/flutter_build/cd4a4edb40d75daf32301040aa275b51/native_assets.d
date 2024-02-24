@@ -1,0 +1,1 @@
+ D:\\Flutter\ Projeleri\\prolingo\\prolingo_app\\.dart_tool\\flutter_build\\cd4a4edb40d75daf32301040aa275b51\\native_assets.yaml: 
