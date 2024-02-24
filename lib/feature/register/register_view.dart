@@ -3,29 +3,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
-//import 'package:kartal/kartal.dart';
-import 'package:prolingo_app/feature/login/login_provider.dart';
-import 'package:prolingo_app/feature/register/register_view.dart';
-import 'package:prolingo_app/product/constants/color_constants.dart';
-import 'package:prolingo_app/product/enums/image_constants.dart';
+import 'package:prolingo_app/feature/login/login_view.dart';
+import 'package:prolingo_app/feature/register/register_provider.dart';
 
-class LoginView extends ConsumerStatefulWidget {
-  const LoginView({super.key});
+import 'package:prolingo_app/product/constants/index.dart';
+import 'package:prolingo_app/product/enums/index.dart';
+
+class RegisterView extends ConsumerStatefulWidget {
+  const RegisterView({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  ConsumerState<ConsumerStatefulWidget> createState() => _LoginViewState();
+  _RegisterViewState createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends ConsumerState<LoginView> {
-  final loginProvider = StateNotifierProvider<LoginProvider, int>((ref) {
-    return LoginProvider();
+class _RegisterViewState extends ConsumerState<RegisterView> {
+  final registerProvider = StateNotifierProvider<RegisterProvider, int>((ref) {
+    return RegisterProvider();
   });
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      floatingActionButton: IconButton(
+        onPressed: () {
+          context.route.navigateToPage(const LoginView());
+        },
+        icon: const Icon(Icons.arrow_back),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SingleChildScrollView(
         child: Form(
           child: Column(
@@ -44,7 +49,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
               Container(
                 margin: const EdgeInsets.only(top: 50),
                 padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-                height: 650,
+                height: 590,
                 decoration: const BoxDecoration(
                   color: ColorConstants.primaryBackgroundColor,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
@@ -55,7 +60,27 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   children: [
                     TextFormField(
                       textInputAction: TextInputAction.next,
-                      
+                      decoration: const InputDecoration(
+                        filled: true,
+                        suffixIcon: Icon(Icons.person),
+                        focusedBorder: OutlineInputBorder(
+                          //üstüne tıklayınca gelen border rengi
+                          borderSide: BorderSide(color: Color.fromARGB(255, 29, 0, 123)),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        labelText: 'Full Name',
+                        labelStyle: TextStyle(
+                          color: ColorConstants.primaryTextColor,
+                        ),
+                        hintText: 'Kullanıcı Adı giriniz.',
+                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                         filled: true,
                         suffixIcon: Icon(Icons.email_outlined),
@@ -77,6 +102,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     ),
                     TextFormField(
                       //  initialValue: "erenatasoy@gmail.com",
+                      textInputAction: TextInputAction.next,
                       obscureText: true,
 
                       decoration: const InputDecoration(
@@ -90,16 +116,42 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
-                        labelText: 'Password',
+                        labelText: ' Password',
                         labelStyle: TextStyle(
                           color: ColorConstants.primaryTextColor,
                         ),
-                        hintText: ' şifre giriniz',
+                        hintText: '  şifre giriniz',
                       ),
                     ),
-                    //Giriş yap butonu
+                    const SizedBox(
+                      height: 15,
+                    ),
+
+                    TextFormField(
+                      //  initialValue: "erenatasoy@gmail.com",
+                      obscureText: true,
+
+                      decoration: const InputDecoration(
+                        filled: true,
+                        suffixIcon: Icon(Icons.remove_red_eye),
+                        focusedBorder: OutlineInputBorder(
+                          //üstüne tıklayınca gelen border rengi
+                          borderSide: BorderSide(color: Color.fromARGB(255, 29, 0, 123)),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        labelText: 'Confirm Password',
+                        labelStyle: TextStyle(
+                          color: ColorConstants.primaryTextColor,
+                        ),
+                        hintText: ' tekrar şifre giriniz',
+                      ),
+                    ),
+                    //Kayıt ol butonu
                     Padding(
-                      padding: const EdgeInsets.only(top: 50),
+                      padding: const EdgeInsets.only(top: 60),
                       child: ElevatedButton(
                         autofocus: true,
                         onPressed: () {},
@@ -108,41 +160,18 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           backgroundColor: MaterialStatePropertyAll(ColorConstants.primaryColor),
                         ),
                         child: const Text(
-                          'Giriş yap',
+                          'Kayıt ol',
+                          style:
+                              TextStyle(color: ColorConstants.primaryTextColor, fontSize: 20, fontFamily: 'bebasNeue'),
                         ),
                       ),
                     ),
-                    //Şifremi unuttum butonu
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Forgot Password ?',
-                        style: TextStyle(color: ColorConstants.white),
-                      ),
+                    const SizedBox(
+                      height: 15,
                     ),
+
                     const Divider(
                       color: ColorConstants.primaryColorLight,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 150),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(
-                            child: Text(
-                              "Don't you have any account?",
-                              style: TextStyle(color: ColorConstants.white),
-                            ),
-                          ),
-                          //Register sayfasına gitme butonu
-                          TextButton(
-                            onPressed: () {
-                              context.route.navigateToPage(const RegisterView());
-                            },
-                            child: const Text('Register'),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),

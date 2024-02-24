@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 import 'package:prolingo_app/feature/home/home_view.dart';
+import 'package:prolingo_app/feature/login/login_view.dart';
 import 'package:prolingo_app/feature/splash/splash_provider.dart';
 //import 'package:prolingo_app/product/constants/color_constants.dart';
 import 'package:prolingo_app/product/constants/string_constants.dart';
@@ -48,9 +49,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
             SizedBox(
-              
               width: 100,
               height: 100,
               child: IconConstants.appIcon.toImage,
@@ -63,6 +62,12 @@ class _SplashViewState extends ConsumerState<SplashView> {
                 Color.fromARGB(255, 9, 0, 29),
               ],
               text: StringConstants.companyName,
+            ),
+            TextButton(
+              onPressed: () {
+                context.route.navigateToPage(const LoginView());
+              },
+              child: const Text('--------DEMO-------'),
             ),
           ],
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:prolingo_app/feature/login/login_view.dart';
+//import 'package:prolingo_app/feature/login/login_view.dart';
+import 'package:prolingo_app/feature/register/register_view.dart';
+import 'package:prolingo_app/feature/splash/splash_view.dart';
 
 //import 'package:prolingo_app/feature/splash/splash_view.dart';
 import 'package:prolingo_app/product/constants/color_constants.dart';
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
           suffixIconColor: ColorConstants.primaryTextColor,
         ),
       ),
-      home: const LoginView(),
+      home: const SplashView(),
     );
   }
 }
